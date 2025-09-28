@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>JOs-41 Debug Version</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header-section {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            width: 100%;
+            padding: 10px 20px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            z-index: 100;
+        }
+
+        .main-content {
+            display: flex;
+            flex: 1;
+            min-height: calc(100vh - 80px);
+            max-width: 100%;
+        }
+
+        .sidebar {
+            width: 350px;
+            min-width: 350px;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            padding: 30px 25px;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            min-height: calc(100vh - 80px);
+        }
+
+        .content-area {
+            flex: 1;
+            padding: 40px 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .video-container {
+            width: 100%;
+            height: 70vh;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .main-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(
+                45deg,
+                #ffffff 0%,
+                #3498db 25%,
+                #ffffff 50%,
+                #3498db 75%,
+                #ffffff 100%
+            );
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .subtitle {
+            font-size: 1rem;
+            margin-bottom: 8px;
+            opacity: 0.9;
+        }
+
+        .symposium-title {
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            line-height: 1.0;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+            max-width: 100%;
+            word-wrap: break-word;
+            white-space: normal;
+            overflow-wrap: break-word;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .sidebar .team-title {
+            font-size: 1.6rem;
+            font-weight: bold;
+            margin-bottom: 30px;
+            text-align: center;
+            color: #3498db;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+            border-bottom: 2px solid rgba(52, 152, 219, 0.3);
+            padding-bottom: 15px;
+        }
+
+        .sidebar .team-members {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            flex: 1;
+        }
+
+        .sidebar .member {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px 18px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar .member:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateX(5px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .debug-info {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <div class="debug-info">
+        Debug Version 2.0<br>
+        Full Width Layout<br>
+        Unmuted Video
+    </div>
+
+    <div class="header-section">
+        <h1 class="main-title">JOs- 41 Present</h1>
+        <div class="subtitle">Symposium On</div>
+        <div class="symposium-title">
+            DOCTRINE TO DEPLOYMENT: INCORPORATING EMERGING AI ENABLED SYSTEMS AND ROBOTIC WARFARE COMPETENCIES INTO TRAINING PHILOSOPHY AND CURRICULUM
+        </div>
+    </div>
+
+    <div class="main-content">
+
+        <div class="content-area">
+            <div class="video-container">
+                <div class="video-wrapper">
+                <video id="mainVideo" preload="auto" playsinline controls autoplay>
+                    <source src="https://drive.google.com/uc?export=download&id=1MAkG3UDUXbenr1odLBK0_NTH_ZJq9BTu" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const video = document.getElementById('mainVideo');
+            
+            // Aggressive autoplay strategy
+            let hasPlayedOnce = false;
+            
+            // Set video properties immediately
+            video.muted = false; // Try unmuted first
+            video.volume = 1.0;
+            video.autoplay = true;
+            video.playsInline = true;
+            
+            const forceAutoplay = () => {
+                if (hasPlayedOnce) return;
+                
+                console.log('🎬 Force autoplay attempt...');
+                
+                // Ensure video is ready
+                if (video.readyState < 2) {
+                    console.log('⏳ Video not ready yet');
+                    return;
+                }
+                
+                // Try unmuted first, but fall back quickly to muted
+                video.muted = false;
+                video.volume = 1.0;
+                
+                video.play().then(() => {
+                    hasPlayedOnce = true;
+                    console.log('✅ Video started with sound');
+                    
+                }).catch(error => {
+                    console.log('❌ Unmuted failed, trying muted autoplay...');
+                    
+                    // Quick fallback to muted
+                    video.muted = true;
+                    video.play().then(() => {
+                        hasPlayedOnce = true;
+                        console.log('✅ Video started muted');
+                        
+                        // Video plays muted - user can unmute manually
+                        console.log('💡 Video playing muted - user can unmute using controls');
+                        
+                    }).catch(mutedError => {
+                        console.log('❌ Muted autoplay also failed:', mutedError.message);
+                        
+                        // Add click handler
+                        const startVideo = () => {
+                            video.muted = false;
+                            video.volume = 1.0;
+                            video.play().then(() => {
+                                hasPlayedOnce = true;
+                                console.log('✅ Video started after user interaction');
+                            }).catch(err => {
+                                console.log('❌ Manual start failed:', err.message);
+                            });
+                        };
+                        
+                        document.addEventListener('click', startVideo, { once: true });
+                        document.addEventListener('touchstart', startVideo, { once: true });
+                    });
+                });
+            };
+            
+            // Simple autoplay strategy
+            console.log('🚀 Initializing simple video autoplay...');
+            
+            // Single autoplay attempt when video is ready
+            video.addEventListener('canplay', () => {
+                console.log('▶️ Video can play, attempting autoplay...');
+                forceAutoplay();
+            });
+            
+            console.log('Debug version loaded - Video should be unmuted');
+        });
+    </script>
+</body>
+</html>
