@@ -1,8 +1,7 @@
-const CACHE_NAME = 'jos-41-symposium-github-v1';
+const CACHE_NAME = 'jos-41-symposium-github-v2';
 const urlsToCache = [
     './',
-    './index.html',
-    './JO-41.mp4'
+    './index.html'
 ];
 
 // Install event - cache resources
