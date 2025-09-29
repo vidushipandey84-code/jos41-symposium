@@ -430,11 +430,13 @@
         <div class="content-area">
             <div class="video-container">
                 <div class="video-wrapper">
-                <!-- Replace YOUR_GOOGLE_DRIVE_FILE_ID with actual Google Drive file ID -->
-                <video id="mainVideo" preload="auto" playsinline controls autoplay>
-                    <source src="https://drive.google.com/uc?export=download&id=1MAkG3UDUXbenr1odLBK0_NTH_ZJq9BTu" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
+                <!-- YouTube video embedded -->
+                <iframe id="mainVideo" 
+                        src="https://www.youtube.com/embed/bCmTTKC3W4o?autoplay=1&mute=1&controls=1&rel=0&modestbranding=1&enablejsapi=1" 
+                        frameborder="0" 
+                        allow="autoplay; encrypted-media; fullscreen" 
+                        allowfullscreen>
+                </iframe>
                 </div>
                 <div class="video-controls" id="videoControls">
                     <button class="btn btn-replay" id="replayBtn">🔄 Replay</button>
